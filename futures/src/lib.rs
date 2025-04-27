@@ -24,7 +24,7 @@ pub use platform::*;
 pub use runtime::Runtime;
 pub use subscription::Subscription;
 
-#[cfg(not(target_arch = "wasm32"))]
+// #[cfg(not(target_arch = "wasm32"))]
 mod platform {
     /// A boxed static future.
     ///
@@ -50,28 +50,28 @@ mod platform {
     }
 }
 
-#[cfg(target_arch = "wasm32")]
-mod platform {
-    /// A boxed static future.
-    ///
-    /// - On native platforms, it needs a `Send` requirement.
-    /// - On the Web platform, it does not need a `Send` requirement.
-    pub type BoxFuture<T> = futures::future::LocalBoxFuture<'static, T>;
+// #[cfg(target_arch = "wasm32")]
+// mod platform {
+//     /// A boxed static future.
+//     ///
+//     /// - On native platforms, it needs a `Send` requirement.
+//     /// - On the Web platform, it does not need a `Send` requirement.
+//     pub type BoxFuture<T> = futures::future::LocalBoxFuture<'static, T>;
 
-    /// A boxed static stream.
-    ///
-    /// - On native platforms, it needs a `Send` requirement.
-    /// - On the Web platform, it does not need a `Send` requirement.
-    pub type BoxStream<T> = futures::stream::LocalBoxStream<'static, T>;
+//     /// A boxed static stream.
+//     ///
+//     /// - On native platforms, it needs a `Send` requirement.
+//     /// - On the Web platform, it does not need a `Send` requirement.
+//     pub type BoxStream<T> = futures::stream::LocalBoxStream<'static, T>;
 
-    /// Boxes a stream.
-    ///
-    /// - On native platforms, it needs a `Send` requirement.
-    /// - On the Web platform, it does not need a `Send` requirement.
-    pub fn boxed_stream<T, S>(stream: S) -> BoxStream<T>
-    where
-        S: futures::Stream<Item = T> + 'static,
-    {
-        futures::stream::StreamExt::boxed_local(stream)
-    }
-}
+//     /// Boxes a stream.
+//     ///
+//     /// - On native platforms, it needs a `Send` requirement.
+//     /// - On the Web platform, it does not need a `Send` requirement.
+//     pub fn boxed_stream<T, S>(stream: S) -> BoxStream<T>
+//     where
+//         S: futures::Stream<Item = T> + 'static,
+//     {
+//         futures::stream::StreamExt::boxed_local(stream)
+//     }
+// }

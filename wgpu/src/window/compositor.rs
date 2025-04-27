@@ -50,7 +50,7 @@ impl Compositor {
     /// Requests a new [`Compositor`] with the given [`Settings`].
     ///
     /// Returns `None` if no compatible graphics adapter could be found.
-    pub async fn request<W: compositor::Window>(
+    pub async fn request<W: compositor::Window + Send + Sync>(
         settings: Settings,
         compatible_window: Option<W>,
     ) -> Result<Self, Error> {
@@ -205,7 +205,7 @@ impl Compositor {
 }
 
 /// Creates a [`Compositor`] with the given [`Settings`] and window.
-pub async fn new<W: compositor::Window>(
+pub async fn new<W: compositor::Window + Send + Sync>(
     settings: Settings,
     compatible_window: W,
 ) -> Result<Compositor, Error> {
@@ -271,7 +271,7 @@ impl graphics::Compositor for Compositor {
     type Renderer = Renderer;
     type Surface = wgpu::Surface<'static>;
 
-    async fn with_backend<W: compositor::Window>(
+    async fn with_backend<W: compositor::Window + Send + Sync>(
         settings: graphics::Settings,
         compatible_window: W,
         backend: Option<&str>,
@@ -308,7 +308,7 @@ impl graphics::Compositor for Compositor {
         )
     }
 
-    fn create_surface<W: compositor::Window>(
+    fn create_surface<W: compositor::Window + Send + Sync>(
         &mut self,
         window: W,
         width: u32,

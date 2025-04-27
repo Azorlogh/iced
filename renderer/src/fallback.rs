@@ -274,7 +274,7 @@ where
         }
     }
 
-    fn create_surface<W: compositor::Window + Clone>(
+    fn create_surface<W: compositor::Window + Clone + Send + Sync>(
         &mut self,
         window: W,
         width: u32,

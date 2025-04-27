@@ -50,7 +50,7 @@ pub mod time {
 
             wasm_timer::Interval::new(self.0)
                 .map(|_| wasm_timer::Instant::now())
-                .boxed_local()
+                .boxed()
         }
     }
 }

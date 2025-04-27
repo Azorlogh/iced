@@ -30,7 +30,7 @@ pub trait Compositor: Sized {
     ///
     /// If the backend does not match the preference, it will return
     /// [`Error::GraphicsAdapterNotFound`].
-    fn with_backend<W: Window + Clone>(
+    fn with_backend<W: Window + Clone + Send + Sync>(
         _settings: Settings,
         _compatible_window: W,
         _backend: Option<&str>,
@@ -42,7 +42,7 @@ pub trait Compositor: Sized {
     /// Crates a new [`Surface`] for the given window.
     ///
     /// [`Surface`]: Self::Surface
-    fn create_surface<W: Window + Clone>(
+    fn create_surface<W: Window + Clone + Send + Sync>(
         &mut self,
         window: W,
         width: u32,
