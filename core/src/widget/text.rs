@@ -91,7 +91,7 @@ where
             height: Length::Shrink,
             horizontal_alignment: alignment::Horizontal::Left,
             vertical_alignment: alignment::Vertical::Top,
-            shaping: Shaping::default(),
+            shaping: Shaping::Advanced,
             wrapping: Wrapping::default(),
             class: Theme::default(),
         }
